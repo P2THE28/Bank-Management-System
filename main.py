@@ -34,18 +34,47 @@ class Bank:
         random.shuffle(id)
         return "".join(id)
 
+#=========================for deposite of money=======================================
+    @classmethod
+    def depositemoney(cls):
+        username=input("Enter your account number:-")
+        mpin=int(input("Enter your Mpin:-"))
+
+        userdata=[i for i in Bank.data if i['AccountNo.'] == username and i['Mpin']==mpin]
+            
+        if userdata == False :
+            print("Wrong Account no. or Mpin")
+        else :
+            for i in userdata[0] :
+                print(f"{i} : {userdata[0][i]}")    
+                
+            amount = int(input("Enter amount to deposite(0-10000):-"))
+            if amount>10000 or amount < 0 :
+                print("Sorry amount should be between 0 to 10000")
+            else:
+                userdata[0]['Balance']+=amount
+                print("Succesfully money deposited")
+                print(f"Balance:{userdata[0]['Balance']}")
+                Bank.__update() 
+            
+
+             
+
+            
+            
+
 #===========================new account creation=========================================
     def createaccount(self):
         info={
-            "name":input("Tell your name:-") ,
-            "age" : int(input("Tell your age:-")),
-            "email" : input("Enter your email:-"),
-            "pin" : int(input("Tell your 4 number pin:-")),
-            "accountNo." : Bank.__accountgenerate(), 
-            "balance" : 0 
+            "Name":input("Tell your name:-") ,
+            "Age" : int(input("Tell your age:-")),
+            "E-mail" : input("Enter your email:-"),
+            "Mpin" : int(input("Tell your 4 number pin:-")),
+            "AccountNo." : Bank.__accountgenerate(), 
+            "Balance" : 0 
         }
 
-        if info['age']<18 or len(str(info['pin'])) !=4 :
+        if info['Age']<18 or len(str(info['Mpin'])) !=4 :
             print("Sorry you cannot create your account.")
         else :
             print("Account has been created successfully")
@@ -55,6 +84,8 @@ class Bank:
             Bank.data.append(info)
             Bank.__update()
         
+
+
 
 
 #=========================user interaction space==========================================
@@ -70,3 +101,9 @@ response=int(input("Enter your response:-"))
 
 if response == 1 :
     user.createaccount()
+
+if response == 2 :
+    user.depositemoney()
+
+
+
