@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Priyanshu Kumar",
+        "age": 20,
+        "email": "priyanshuask28@gmail.com",
+        "pin": 8254,
+        "accountNo.": 1234,
+        "balance": 0
+    },
+    {
+        "name": "Anshu Raj",
+        "age": 20,
+        "email": "anshuask@gmail.com",
+        "pin": 9876,
+        "accountNo.": "q&Xv116",
+        "balance": 0
+    },
+    {
+        "name": "Aditya",
+        "age": 22,
+        "email": "aditya@gmail.com",
+        "pin": 1234,
+        "accountNo.": "y904N&O",
+        "balance": 0
+    }
+]
