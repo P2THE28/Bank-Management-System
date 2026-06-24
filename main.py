@@ -47,7 +47,7 @@ class Bank:
         else :
             for i in userdata[0] :
                 print(f"{i} : {userdata[0][i]}")    
-                
+
             amount = int(input("Enter amount to deposite(0-10000):-"))
             if amount>10000 or amount < 0 :
                 print("Sorry amount should be between 0 to 10000")
@@ -56,12 +56,34 @@ class Bank:
                 print("Succesfully money deposited")
                 print(f"Balance:{userdata[0]['Balance']}")
                 Bank.__update() 
-            
 
-             
 
+#==========================Withdraw of money=========================
+    @classmethod
+    def withdraw(cls):
+        username=input("Enter your account number:-")
+        mpin=int(input("Enter your Mpin:-"))
+
+        userdata=[i for i in Bank.data if i['AccountNo.'] == username and i['Mpin']==mpin]
             
-            
+        if userdata == False :
+            print("Wrong Account no. or Mpin")
+        else :
+            for i in userdata[0] :
+                print(f"{i} : {userdata[0][i]}")    
+
+            amount = int(input("Enter amount to withdraw(0-5000):-"))
+            if amount>5000 or amount < 0 :
+                print("Sorry amount should be between 0 to 10000")
+            elif amount>userdata[0]['Balance'] :
+                print("Sorry you dont have enough Balance")
+            else:
+                userdata[0]['Balance']-=amount
+                print("Succesfully money deposited")
+                print(f"Balance:{userdata[0]['Balance']}")
+                Bank.__update() 
+
+
 
 #===========================new account creation=========================================
     def createaccount(self):
@@ -83,9 +105,6 @@ class Bank:
             print("Please note down your account number.")
             Bank.data.append(info)
             Bank.__update()
-        
-
-
 
 
 #=========================user interaction space==========================================
@@ -105,5 +124,10 @@ if response == 1 :
 if response == 2 :
     user.depositemoney()
 
+if response ==3 :
+    user.withdraw()
+
+if response == 4 :
+    user.details()
 
 
