@@ -42,11 +42,9 @@ class Bank:
 
         userdata=[i for i in Bank.data if i['AccountNo.'] == username and i['Mpin']==mpin]
             
-        if userdata == False :
+        if not userdata :
             print("Wrong Account no. or Mpin")
-        else :
-            for i in userdata[0] :
-                print(f"{i} : {userdata[0][i]}")    
+        else :    
 
             amount = int(input("Enter amount to deposite(0-10000):-"))
             if amount>10000 or amount < 0 :
@@ -66,12 +64,10 @@ class Bank:
 
         userdata=[i for i in Bank.data if i['AccountNo.'] == username and i['Mpin']==mpin]
             
-        if userdata == False :
+        if not userdata :
             print("Wrong Account no. or Mpin")
         else :
-            for i in userdata[0] :
-                print(f"{i} : {userdata[0][i]}")    
-
+                
             amount = int(input("Enter amount to withdraw(0-5000):-"))
             if amount>5000 or amount < 0 :
                 print("Sorry amount should be between 0 to 10000")
@@ -83,8 +79,76 @@ class Bank:
                 print(f"Balance:{userdata[0]['Balance']}")
                 Bank.__update() 
 
+#===========================Details of the user=========================================
+    @classmethod
+    def details(cls):
+        username=input("Enter your account number:-")
+        mpin=int(input("Enter your Mpin:-"))
 
+        userdata=[i for i in Bank.data if i['AccountNo.'] == username and i['Mpin']==mpin]
+            
+        if not  userdata :
+            print("Wrong Account no. or Mpin")
+        else :
+            print("User details :- ")
+            for i in userdata[0] :
+                print(f"{i} : {userdata[0][i]}")   
 
+#=========================update details===========================================
+    @classmethod
+    def update(cls):
+        username=input("Enter your account number:-")
+        mpin=int(input("Enter your Mpin:-"))
+
+        userdata=[i for i in Bank.data if i['AccountNo.'] == username and i['Mpin']==mpin]
+            
+        if not userdata:
+            print("Wrong Account no. or Mpin")
+        else :
+            print("Enter your new details or leave it as it is.")
+
+            newdata={
+                "Name":input("Tell new name:-") ,
+                "E-mail" : input("Enter new email:-"),
+                "Mpin" : int(input("Enter new 4 number pin:-")),
+            }
+
+            if newdata['Name']=="" :
+                newdata['Name']=userdata[0]['Name']
+            if newdata['E-mail']=="" :
+                newdata['E-mail']=userdata[0]['E-mail']
+            if newdata['Mpin']=="" :
+                newdata['Mpin']=userdata[0]['Mpin']
+
+            for i in newdata :
+                userdata[0][i]=newdata[i]
+            
+            Bank.__update()
+
+            print("Succesfullly updated.")
+
+               
+#=====================delete account===========
+
+    def delete(celf):
+        username=input("Enter your account number:-")
+        mpin=int(input("Enter your Mpin:-"))
+
+        userdata=[i for i in Bank.data if i['AccountNo.'] == username and i['Mpin']==mpin]
+            
+        if not userdata:
+            print("Wrong Account no. or Mpin")
+        else :
+            confirm=input("Enter 'y' for yes and 'n' for no :-")
+            if confirm=='y' :
+                index=Bank.data.index(userdata[0])
+                Bank.data.pop(index)
+                print("Account delted successfully")
+                Bank.__update()
+            else:
+                print("Not deleted")
+        
+    
 #===========================new account creation=========================================
     def createaccount(self):
         info={
@@ -130,4 +194,9 @@ if response ==3 :
 if response == 4 :
     user.details()
 
+if response == 5 :
+    user.update()
+
+if response == 6 :
+    user.delete()
 
